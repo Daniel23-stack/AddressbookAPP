@@ -1,0 +1,64 @@
+﻿@model AddressBookApp.Application.DTOs.ApiClientCreateDto
+
+@{
+    ViewData["Title"] = "Create API Client";
+}
+
+<div class="container">
+    <div class="row mb-4">
+        <div class="col">
+            <h1>Create API Client</h1>
+            <p class="lead">Create a new API client for external access to your contacts.</p>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">New API Client</h5>
+                </div>
+                <div class="card-body">
+                    <form action="/ApiClientsMvc/Create" method="post">
+                        @Html.AntiForgeryToken()
+                        <div class="text-danger">@Html.ValidationSummary(true)</div>
+                        <div class="mb-3">
+                            <label for="Name" class="form-label">Client Name</label>
+                            <input type="text" id="Name" name="Name" class="form-control" required />
+                            <span class="text-danger">@Html.ValidationMessage("Name")</span>
+                            <div class="form-text">Enter a descriptive name for this API client (e.g., "Mobile App", "Partner Integration").</div>
+                        </div>
+                        <div class="alert alert-warning">
+                            <strong>Important:</strong> The API key and secret will be shown only once after creation. Make sure to save them securely.
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">Create API Client</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Information</h5>
+                </div>
+                <div class="card-body">
+                    <p>Creating an API client will generate:</p>
+                    <ul>
+                        <li><strong>API Key</strong>: A unique identifier for the client</li>
+                        <li><strong>API Secret</strong>: A secret key used for authentication</li>
+                    </ul>
+                    <p>These credentials will be used to authenticate requests to the API. Keep them secure and do not share them publicly.</p>
+                    <p>You can create multiple API clients for different applications or services.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row mt-4">
+        <div class="col">
+            <a href="/ApiClientsMvc" class="btn btn-secondary">Back to API Clients</a>
+        </div>
+    </div>
+</div>

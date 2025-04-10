@@ -1,0 +1,62 @@
+﻿@{
+    ViewData["Title"] = "API Clients";
+}
+
+<div class="container">
+    <div class="row mb-4">
+        <div class="col">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h1>API Clients</h1>
+                    <p class="lead">Manage API clients for external access to your contacts.</p>
+                </div>
+                <div>
+                    <a href="/BasicApiClients/Create" class="btn btn-primary">Create New API Client</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">API Clients</h5>
+                </div>
+                <div class="card-body">
+                    <p class="text-center">No API clients found. Create one to get started.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row mt-4">
+        <div class="col">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">API Usage Instructions</h5>
+                </div>
+                <div class="card-body">
+                    <h6>Authentication</h6>
+                    <p>To authenticate with the API, include the following headers in your requests:</p>
+                    <pre><code>X-Api-Key: your-api-key
+X-Api-Secret: your-api-secret</code></pre>
+                    
+                    <h6>Endpoints</h6>
+                    <p>The following endpoints are available:</p>
+                    <ul>
+                        <li><code>GET /api/external/contacts</code> - Get all contacts</li>
+                        <li><code>GET /api/external/contacts?startDate=2023-01-01&endDate=2023-12-31</code> - Get contacts by date range</li>
+                        <li><code>GET /api/external/contacts/{id}</code> - Get a specific contact</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row mt-4">
+        <div class="col">
+            <a href="/Dashboard" class="btn btn-secondary">Back to Dashboard</a>
+        </div>
+    </div>
+</div>

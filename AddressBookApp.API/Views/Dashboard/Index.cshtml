@@ -1,0 +1,86 @@
+﻿@model AddressBookApp.Application.DTOs.DashboardDto
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="container">
+    <div class="row mb-4">
+        <div class="col">
+            <h1 class="display-4">Welcome, @ViewBag.UserName!</h1>
+            <p class="lead">Here's an overview of your Address Book system.</p>
+        </div>
+    </div>
+    
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="card text-white bg-primary mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Total Contacts</h5>
+                    <p class="card-text display-4">@Model.TotalContacts</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-success mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Client Contacts</h5>
+                    <p class="card-text display-4">@Model.ClientContacts</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-info mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Data Exports</h5>
+                    <p class="card-text display-4">@Model.DataExportCount</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-warning mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">API Clients (7 days)</h5>
+                    <p class="card-text display-4">@Model.ApiClientUsageCount</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Imported Contacts</h5>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h2 class="mb-0">@Model.ImportedContacts</h2>
+                        <a asp-controller="ImportExport" asp-action="ImportContacts" class="btn btn-primary">Import Contacts</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Quick Actions</h5>
+                </div>
+                <div class="card-body">
+                    <div class="d-grid gap-2">
+                        <a asp-controller="Home" asp-action="Contacts" class="btn btn-outline-primary">Manage Contacts</a>
+                        <a asp-controller="ImportExport" asp-action="ExportContacts" class="btn btn-outline-success">Export Contacts</a>
+                        <a href="/BasicApiClients" class="btn btn-outline-info">Manage API Clients</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Add any dashboard-specific JavaScript here
+        });
+    </script>
+}

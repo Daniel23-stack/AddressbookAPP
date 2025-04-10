@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "Registration Successful";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Registration Successful</h2>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-success">
+                        @(ViewBag.SuccessMessage ?? "Registration successful! You can now log in.")
+                    </div>
+                    <p>You have successfully registered. You can now log in to access the application.</p>
+                    <a href="/Account/Login" class="btn btn-primary">Go to Login</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

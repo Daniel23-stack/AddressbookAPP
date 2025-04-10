@@ -1,0 +1,59 @@
+﻿@{
+    ViewData["Title"] = "Simple Register";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <h2>Simple Register Form</h2>
+            <p>This is a simplified registration form for testing.</p>
+            
+            <form action="/Account/Register" method="post">
+                <input name="__RequestVerificationToken" type="hidden" value="@Html.AntiForgeryToken()" />
+                
+                <div class="mb-3">
+                    <label for="Email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="Email" name="Email" required>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="FirstName" class="form-label">First Name</label>
+                    <input type="text" class="form-control" id="FirstName" name="FirstName" required>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="LastName" class="form-label">Last Name</label>
+                    <input type="text" class="form-control" id="LastName" name="LastName" required>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="Password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="Password" name="Password" required>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="ConfirmPassword" class="form-label">Confirm Password</label>
+                    <input type="password" class="form-control" id="ConfirmPassword" name="ConfirmPassword" required>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Register</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('Simple Register page loaded');
+        
+        document.querySelector('form').addEventListener('submit', function(e) {
+            console.log('Form submitted');
+            
+            // Uncomment to see form data
+            var formData = new FormData(this);
+            for (var pair of formData.entries()) {
+                console.log(pair[0] + ': ' + pair[1]);
+            }
+        });
+    });
+</script>
