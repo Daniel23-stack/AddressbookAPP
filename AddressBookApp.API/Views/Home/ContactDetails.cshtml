@@ -1,0 +1,374 @@
+﻿@{
+    ViewData["Title"] = "Contact Details";
+}
+
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Contact Details</h1>
+        <div>
+            <button type="button" class="btn btn-primary me-2" id="btnEdit">Edit</button>
+            <a asp-action="Contacts" class="btn btn-secondary">Back to List</a>
+        </div>
+    </div>
+    
+    <div id="loadingIndicator" class="text-center">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+    
+    <div id="contactDetails" class="d-none">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h3 id="contactName"></h3>
+                <p id="contactCompany" class="mb-0"></p>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4>Contact Information</h4>
+                        <div id="contactNotes" class="mb-3"></div>
+                        <p><small class="text-muted">Created: <span id="contactCreated"></span></small></p>
+                        <p><small class="text-muted">Last Updated: <span id="contactUpdated"></span></small></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0">Phone Numbers</h4>
+                        <button type="button" class="btn btn-sm btn-primary" id="btnAddPhone">Add</button>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group" id="phoneList">
+                            <!-- Phone numbers will be loaded here -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0">Email Addresses</h4>
+                        <button type="button" class="btn btn-sm btn-primary" id="btnAddEmail">Add</button>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group" id="emailList">
+                            <!-- Email addresses will be loaded here -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0">Addresses</h4>
+                        <button type="button" class="btn btn-sm btn-primary" id="btnAddAddress">Add</button>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group" id="addressList">
+                            <!-- Addresses will be loaded here -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Contact Modal -->
+<div class="modal fade" id="editContactModal" tabindex="-1" aria-labelledby="editContactModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editContactModalLabel">Edit Contact</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editContactForm">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="firstName" class="form-label">First Name</label>
+                            <input type="text" class="form-control" id="firstName" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="lastName" class="form-label">Last Name</label>
+                            <input type="text" class="form-control" id="lastName" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="company" class="form-label">Company</label>
+                        <input type="text" class="form-control" id="company">
+                    </div>
+                    <div class="mb-3">
+                        <label for="notes" class="form-label">Notes</label>
+                        <textarea class="form-control" id="notes" rows="3"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="btnSaveContact">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        const contactId = '@ViewBag.ContactId';
+        let currentContact = null;
+        
+        $(document).ready(function() {
+            loadContactDetails();
+            
+            $('#btnEdit').click(function() {
+                openEditModal();
+            });
+            
+            $('#btnSaveContact').click(function() {
+                saveContact();
+            });
+            
+            $('#btnAddPhone').click(function() {
+                // Implement add phone functionality
+                alert('Add phone functionality will be implemented here');
+            });
+            
+            $('#btnAddEmail').click(function() {
+                // Implement add email functionality
+                alert('Add email functionality will be implemented here');
+            });
+            
+            $('#btnAddAddress').click(function() {
+                // Implement add address functionality
+                alert('Add address functionality will be implemented here');
+            });
+        });
+        
+        function loadContactDetails() {
+            $('#loadingIndicator').removeClass('d-none');
+            $('#contactDetails').addClass('d-none');
+            
+            $.ajax({
+                url: `/api/contacts/${contactId}`,
+                type: 'GET',
+                headers: {
+                    'Authorization': 'Bearer ' + getAccessToken()
+                },
+                success: function(contact) {
+                    currentContact = contact;
+                    displayContactDetails(contact);
+                    $('#loadingIndicator').addClass('d-none');
+                    $('#contactDetails').removeClass('d-none');
+                },
+                error: function(xhr) {
+                    console.error('Error loading contact details:', xhr);
+                    alert('Failed to load contact details. Please try again.');
+                    $('#loadingIndicator').addClass('d-none');
+                }
+            });
+        }
+        
+        function displayContactDetails(contact) {
+            // Basic info
+            $('#contactName').text(`${contact.firstName} ${contact.lastName}`);
+            $('#contactCompany').text(contact.company || '');
+            $('#contactNotes').text(contact.notes || 'No notes');
+            $('#contactCreated').text(formatDate(contact.createdAt));
+            $('#contactUpdated').text(contact.updatedAt ? formatDate(contact.updatedAt) : 'Never');
+            
+            // Phone numbers
+            const phoneList = $('#phoneList');
+            phoneList.empty();
+            
+            if (contact.phoneNumbers.length === 0) {
+                phoneList.append('<li class="list-group-item">No phone numbers</li>');
+            } else {
+                contact.phoneNumbers.forEach(function(phone) {
+                    const item = `
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <strong>${getPhoneTypeName(phone.type)}</strong><br>
+                                ${phone.number}
+                            </div>
+                            <div>
+                                <button type="button" class="btn btn-sm btn-outline-primary me-1" onclick="editPhone('${phone.id}')">Edit</button>
+                                <button type="button" class="btn btn-sm btn-outline-danger" onclick="deletePhone('${phone.id}')">Delete</button>
+                            </div>
+                        </li>
+                    `;
+                    phoneList.append(item);
+                });
+            }
+            
+            // Email addresses
+            const emailList = $('#emailList');
+            emailList.empty();
+            
+            if (contact.emailAddresses.length === 0) {
+                emailList.append('<li class="list-group-item">No email addresses</li>');
+            } else {
+                contact.emailAddresses.forEach(function(email) {
+                    const item = `
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <strong>${getEmailTypeName(email.type)}</strong><br>
+                                ${email.email}
+                            </div>
+                            <div>
+                                <button type="button" class="btn btn-sm btn-outline-primary me-1" onclick="editEmail('${email.id}')">Edit</button>
+                                <button type="button" class="btn btn-sm btn-outline-danger" onclick="deleteEmail('${email.id}')">Delete</button>
+                            </div>
+                        </li>
+                    `;
+                    emailList.append(item);
+                });
+            }
+            
+            // Addresses
+            const addressList = $('#addressList');
+            addressList.empty();
+            
+            if (contact.addresses.length === 0) {
+                addressList.append('<li class="list-group-item">No addresses</li>');
+            } else {
+                contact.addresses.forEach(function(address) {
+                    const item = `
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <strong>${getAddressTypeName(address.type)}</strong><br>
+                                ${formatAddress(address)}
+                            </div>
+                            <div>
+                                <button type="button" class="btn btn-sm btn-outline-primary me-1" onclick="editAddress('${address.id}')">Edit</button>
+                                <button type="button" class="btn btn-sm btn-outline-danger" onclick="deleteAddress('${address.id}')">Delete</button>
+                            </div>
+                        </li>
+                    `;
+                    addressList.append(item);
+                });
+            }
+        }
+        
+        function openEditModal() {
+            $('#firstName').val(currentContact.firstName);
+            $('#lastName').val(currentContact.lastName);
+            $('#company').val(currentContact.company);
+            $('#notes').val(currentContact.notes);
+            
+            $('#editContactModal').modal('show');
+        }
+        
+        function saveContact() {
+            const updatedContact = {
+                id: contactId,
+                firstName: $('#firstName').val(),
+                lastName: $('#lastName').val(),
+                company: $('#company').val(),
+                notes: $('#notes').val(),
+                addresses: currentContact.addresses,
+                phoneNumbers: currentContact.phoneNumbers,
+                emailAddresses: currentContact.emailAddresses
+            };
+            
+            $.ajax({
+                url: `/api/contacts/${contactId}`,
+                type: 'PUT',
+                headers: {
+                    'Authorization': 'Bearer ' + getAccessToken(),
+                    'Content-Type': 'application/json'
+                },
+                data: JSON.stringify(updatedContact),
+                success: function() {
+                    $('#editContactModal').modal('hide');
+                    loadContactDetails();
+                },
+                error: function(xhr) {
+                    console.error('Error updating contact:', xhr);
+                    alert('Failed to update contact. Please try again.');
+                }
+            });
+        }
+        
+        // Helper functions
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
+        }
+        
+        function formatAddress(address) {
+            let formattedAddress = address.street;
+            if (address.city) formattedAddress += `<br>${address.city}`;
+            if (address.state) formattedAddress += `, ${address.state}`;
+            if (address.postalCode) formattedAddress += ` ${address.postalCode}`;
+            if (address.country) formattedAddress += `<br>${address.country}`;
+            return formattedAddress;
+        }
+        
+        function getPhoneTypeName(type) {
+            const types = {
+                0: 'Mobile',
+                1: 'Home',
+                2: 'Work',
+                3: 'Fax',
+                4: 'Other'
+            };
+            return types[type] || 'Unknown';
+        }
+        
+        function getEmailTypeName(type) {
+            const types = {
+                0: 'Personal',
+                1: 'Work',
+                2: 'Other'
+            };
+            return types[type] || 'Unknown';
+        }
+        
+        function getAddressTypeName(type) {
+            const types = {
+                0: 'Home',
+                1: 'Work',
+                2: 'Other'
+            };
+            return types[type] || 'Unknown';
+        }
+        
+        function getAccessToken() {
+            // In a real application, you would retrieve this from a secure storage
+            // For this example, we'll use a simple approach
+            return '@User.FindFirst("AccessToken")?.Value';
+        }
+        
+        // These functions would be implemented to handle editing and deleting contact details
+        function editPhone(id) {
+            alert('Edit phone functionality will be implemented here');
+        }
+        
+        function deletePhone(id) {
+            alert('Delete phone functionality will be implemented here');
+        }
+        
+        function editEmail(id) {
+            alert('Edit email functionality will be implemented here');
+        }
+        
+        function deleteEmail(id) {
+            alert('Delete email functionality will be implemented here');
+        }
+        
+        function editAddress(id) {
+            alert('Edit address functionality will be implemented here');
+        }
+        
+        function deleteAddress(id) {
+            alert('Delete address functionality will be implemented here');
+        }
+    </script>
+}

@@ -1,0 +1,85 @@
+﻿@model IEnumerable<AddressBookApp.Application.DTOs.ImportHistoryDto>
+
+@{
+    ViewData["Title"] = "Import History";
+}
+
+<div class="container">
+    <div class="row mb-4">
+        <div class="col">
+            <h1>Import History</h1>
+            <p class="lead">View the history of your contact imports.</p>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Import History</h5>
+                </div>
+                <div class="card-body">
+                    @if (!Model.Any())
+                    {
+                        <p class="text-center">No import history found.</p>
+                    }
+                    else
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>File Name</th>
+                                        <th>Total Records</th>
+                                        <th>Successful</th>
+                                        <th>Failed</th>
+                                        <th>Success Rate</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var import in Model.OrderByDescending(i => i.ImportedAt))
+                                    {
+                                        <tr>
+                                            <td>@import.ImportedAt.ToString("yyyy-MM-dd HH:mm")</td>
+                                            <td>@import.FileName</td>
+                                            <td>@import.TotalRecords</td>
+                                            <td>@import.SuccessfulRecords</td>
+                                            <td>@import.FailedRecords</td>
+                                            <td>
+                                                @if (import.TotalRecords > 0)
+                                                {
+                                                    var successRate = (double)import.SuccessfulRecords / import.TotalRecords * 100;
+                                                    <div class="progress">
+                                                        <div class="progress-bar @(successRate >= 90 ? "bg-success" : successRate >= 70 ? "bg-warning" : "bg-danger")" 
+                                                             role="progressbar" 
+                                                             style="width: @successRate%;" 
+                                                             aria-valuenow="@successRate" 
+                                                             aria-valuemin="0" 
+                                                             aria-valuemax="100">
+                                                            @successRate.ToString("0.0")%
+                                                        </div>
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <span>N/A</span>
+                                                }
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row mt-4">
+        <div class="col">
+            <a asp-action="Index" class="btn btn-secondary">Back to Import/Export</a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,56 @@
+﻿@{
+    ViewData["Title"] = "Import/Export";
+}
+
+<div class="container">
+    <div class="row mb-4">
+        <div class="col">
+            <h1>Import & Export</h1>
+            <p class="lead">Import contacts from CSV files or export your contacts to CSV format.</p>
+        </div>
+    </div>
+    
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Import</h5>
+                </div>
+                <div class="card-body">
+                    <p>Import contacts from a CSV file. The file should have the following columns:</p>
+                    <ul>
+                        <li>FirstName</li>
+                        <li>LastName</li>
+                        <li>Company</li>
+                        <li>Email</li>
+                        <li>Phone</li>
+                        <li>IsClient</li>
+                        <li>Notes</li>
+                    </ul>
+                    <div class="d-grid">
+                        <a asp-action="ImportContacts" class="btn btn-primary">Import Contacts</a>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a asp-action="ImportHistory" class="btn btn-link">View Import History</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Export</h5>
+                </div>
+                <div class="card-body">
+                    <p>Export your contacts to a CSV file. You can choose to export all contacts or only clients.</p>
+                    <div class="d-grid">
+                        <a asp-action="ExportContacts" class="btn btn-success">Export Contacts</a>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a asp-action="ExportHistory" class="btn btn-link">View Export History</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

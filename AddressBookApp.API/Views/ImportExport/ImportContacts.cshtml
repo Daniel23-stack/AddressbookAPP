@@ -1,0 +1,75 @@
+﻿@model AddressBookApp.Application.DTOs.ImportResultDto
+
+@{
+    ViewData["Title"] = "Import Contacts";
+}
+
+<div class="container">
+    <div class="row mb-4">
+        <div class="col">
+            <h1>Import Contacts</h1>
+            <p class="lead">Import contacts from a CSV file.</p>
+        </div>
+    </div>
+    
+    @if (Model != null)
+    {
+        <div class="row mb-4">
+            <div class="col">
+                <div class="alert @(Model.Success ? "alert-success" : "alert-danger")">
+                    <h4 class="alert-heading">@(Model.Success ? "Import Successful!" : "Import Failed!")</h4>
+                    <p>@Model.Message</p>
+                    @if (Model.Success)
+                    {
+                        <hr>
+                        <p class="mb-0">
+                            Total Records: @Model.TotalRecords<br>
+                            Successfully Imported: @Model.SuccessfulRecords<br>
+                            Failed Records: @Model.FailedRecords
+                        </p>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+    
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Upload CSV File</h5>
+                </div>
+                <div class="card-body">
+                    <form asp-action="ImportContacts" method="post" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label for="file" class="form-label">CSV File</label>
+                            <input type="file" class="form-control" id="file" name="file" accept=".csv" required>
+                            <div class="form-text">The file should have the following columns: FirstName, LastName, Company, Email, Phone, IsClient, Notes</div>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">Import</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">CSV Format Example</h5>
+                </div>
+                <div class="card-body">
+                    <pre class="mb-0"><code>FirstName,LastName,Company,Email,Phone,IsClient,Notes
+John,Doe,Acme Inc,john@example.com,123-456-7890,true,Sample note
+Jane,Smith,XYZ Corp,jane@example.com,987-654-3210,false,Another note</code></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row mt-4">
+        <div class="col">
+            <a asp-action="Index" class="btn btn-secondary">Back to Import/Export</a>
+        </div>
+    </div>
+</div>
