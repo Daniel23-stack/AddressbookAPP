@@ -29,6 +29,16 @@ namespace AddressBookApp.Application.Services
         {
             return await _contactRepository.SearchContactsAsync(searchTerm);
         }
+
+        public async Task<IReadOnlyList<Contact>> AdvancedSearchAsync(SearchFilter filter)
+        {
+            return await _contactRepository.AdvancedSearchAsync(filter);
+        }
+
+        public async Task<int> GetAdvancedSearchCountAsync(SearchFilter filter)
+        {
+            return await _contactRepository.GetAdvancedSearchCountAsync(filter);
+        }
         
         public async Task<Contact> CreateContactAsync(Contact contact)
         {

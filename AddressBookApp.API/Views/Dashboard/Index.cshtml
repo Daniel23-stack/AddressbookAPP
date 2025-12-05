@@ -1,75 +1,189 @@
-﻿@model AddressBookApp.Application.DTOs.DashboardDto
+﻿@model AddressBookApp.Core.Models.DashboardAnalytics
 @{
     ViewData["Title"] = "Dashboard";
 }
 
-<div class="container">
+<div class="container-fluid">
     <div class="row mb-4">
         <div class="col">
-            <h1 class="display-4">Welcome, @ViewBag.UserName!</h1>
+            <h1 class="display-5">Welcome, @ViewBag.UserName!</h1>
             <p class="lead">Here's an overview of your Address Book system.</p>
         </div>
-    </div>
-    
-    <div class="row mb-4">
-        <div class="col-md-3">
-            <div class="card text-white bg-primary mb-3">
-                <div class="card-body">
-                    <h5 class="card-title">Total Contacts</h5>
-                    <p class="card-text display-4">@Model.TotalContacts</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card text-white bg-success mb-3">
-                <div class="card-body">
-                    <h5 class="card-title">Client Contacts</h5>
-                    <p class="card-text display-4">@Model.ClientContacts</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card text-white bg-info mb-3">
-                <div class="card-body">
-                    <h5 class="card-title">Data Exports</h5>
-                    <p class="card-text display-4">@Model.DataExportCount</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card text-white bg-warning mb-3">
-                <div class="card-body">
-                    <h5 class="card-title">API Clients (7 days)</h5>
-                    <p class="card-text display-4">@Model.ApiClientUsageCount</p>
-                </div>
-            </div>
+        <div class="col-auto">
+            <button class="btn btn-outline-secondary" id="refreshDashboard" title="Refresh Data">
+                <i class="bi bi-arrow-clockwise"></i> Refresh
+            </button>
         </div>
     </div>
     
-    <div class="row mb-4">
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="mb-0">Imported Contacts</h5>
-                </div>
+    <!-- Stats Cards -->
+    <div class="row mb-4" id="statsCards">
+        <div class="col-md-3 col-sm-6 mb-3">
+            <div class="card stats-card stats-card-primary">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h2 class="mb-0">@Model.ImportedContacts</h2>
-                        <a asp-controller="ImportExport" asp-action="ImportContacts" class="btn btn-primary">Import Contacts</a>
+                        <div>
+                            <h6 class="text-muted mb-2">Total Contacts</h6>
+                            <h2 class="mb-0" id="totalContacts">@Model.TotalContacts</h2>
+                        </div>
+                        <div class="stats-icon">
+                            <i class="bi bi-people-fill"></i>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="mb-0">Quick Actions</h5>
+        <div class="col-md-3 col-sm-6 mb-3">
+            <div class="card stats-card stats-card-success">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-muted mb-2">Client Contacts</h6>
+                            <h2 class="mb-0" id="clientContacts">@Model.ClientContacts</h2>
+                        </div>
+                        <div class="stats-icon">
+                            <i class="bi bi-briefcase-fill"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6 mb-3">
+            <div class="card stats-card stats-card-info">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-muted mb-2">Data Exports</h6>
+                            <h2 class="mb-0" id="dataExports">@Model.DataExportCount</h2>
+                        </div>
+                        <div class="stats-icon">
+                            <i class="bi bi-download"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6 mb-3">
+            <div class="card stats-card stats-card-warning">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-muted mb-2">API Usage (7d)</h6>
+                            <h2 class="mb-0" id="apiUsage">@Model.ApiClientUsageCount</h2>
+                        </div>
+                        <div class="stats-icon">
+                            <i class="bi bi-code-slash"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Charts Row -->
+    <div class="row mb-4">
+        <div class="col-lg-8 mb-4">
+            <div class="card dashboard-widget">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0"><i class="bi bi-graph-up"></i> Contact Growth</h5>
+                    <select class="form-select form-select-sm" id="growthPeriod" style="width: auto;">
+                        <option value="7">Last 7 days</option>
+                        <option value="30" selected>Last 30 days</option>
+                        <option value="90">Last 90 days</option>
+                    </select>
                 </div>
                 <div class="card-body">
-                    <div class="d-grid gap-2">
-                        <a asp-controller="Home" asp-action="Contacts" class="btn btn-outline-primary">Manage Contacts</a>
-                        <a asp-controller="ImportExport" asp-action="ExportContacts" class="btn btn-outline-success">Export Contacts</a>
-                        <a href="/BasicApiClients" class="btn btn-outline-info">Manage API Clients</a>
+                    <canvas id="contactGrowthChart"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 mb-4">
+            <div class="card dashboard-widget">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="bi bi-building"></i> Top Companies</h5>
+                </div>
+                <div class="card-body">
+                    <canvas id="companyChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row mb-4">
+        <div class="col-lg-6 mb-4">
+            <div class="card dashboard-widget">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="bi bi-activity"></i> Activity Timeline</h5>
+                </div>
+                <div class="card-body">
+                    <canvas id="activityChart"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 mb-4">
+            <div class="card dashboard-widget">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="bi bi-bar-chart"></i> API Usage</h5>
+                </div>
+                <div class="card-body">
+                    <canvas id="apiUsageChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Recent Activity -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card dashboard-widget">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="bi bi-clock-history"></i> Recent Activity</h5>
+                </div>
+                <div class="card-body">
+                    <div id="recentActivity">
+                        <div class="text-center text-muted py-4">
+                            <i class="bi bi-hourglass-split" style="font-size: 2rem;"></i>
+                            <p class="mt-2">Loading recent activity...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Quick Actions -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="bi bi-lightning-fill"></i> Quick Actions</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-3 col-sm-6">
+                            <a asp-controller="Home" asp-action="Contacts" class="btn btn-outline-primary w-100">
+                                <i class="bi bi-person-lines-fill"></i><br>
+                                Manage Contacts
+                            </a>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <a asp-controller="ImportExport" asp-action="ExportContacts" class="btn btn-outline-success w-100">
+                                <i class="bi bi-download"></i><br>
+                                Export Contacts
+                            </a>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <a asp-controller="ImportExport" asp-action="ImportContacts" class="btn btn-outline-info w-100">
+                                <i class="bi bi-upload"></i><br>
+                                Import Contacts
+                            </a>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <a href="/BasicApiClients" class="btn btn-outline-warning w-100">
+                                <i class="bi bi-code-slash"></i><br>
+                                API Clients
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -77,10 +191,378 @@
     </div>
 </div>
 
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<!-- Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+
+<style>
+    .stats-card {
+        border: none;
+        border-radius: 15px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        height: 100%;
+    }
+
+    .stats-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .stats-card-primary {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+    }
+
+    .stats-card-success {
+        background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+        color: white;
+    }
+
+    .stats-card-info {
+        background: linear-gradient(135deg, #3494e6 0%, #ec6ead 100%);
+        color: white;
+    }
+
+    .stats-card-warning {
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        color: white;
+    }
+
+    .stats-icon {
+        font-size: 3rem;
+        opacity: 0.3;
+    }
+
+    .dashboard-widget {
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        height: 100%;
+    }
+
+    .dashboard-widget .card-header {
+        background: #f8f9fa;
+        border-bottom: 2px solid #e9ecef;
+        border-radius: 15px 15px 0 0;
+    }
+
+    .dashboard-widget .card-header h5 {
+        color: #495057;
+        font-weight: 600;
+    }
+
+    .dashboard-widget .card-header i {
+        color: #667eea;
+        margin-right: 8px;
+    }
+
+    #recentActivity .activity-item {
+        padding: 1rem;
+        border-bottom: 1px solid #e9ecef;
+        transition: background 0.2s ease;
+    }
+
+    #recentActivity .activity-item:hover {
+        background: #f8f9fa;
+    }
+
+    #recentActivity .activity-item:last-child {
+        border-bottom: none;
+    }
+
+    .activity-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 1rem;
+        font-size: 1.2rem;
+    }
+
+    .activity-icon.created { background: #d1e7dd; color: #0f5132; }
+    .activity-icon.updated { background: #cff4fc; color: #055160; }
+    .activity-icon.viewed { background: #fff3cd; color: #664d03; }
+    .activity-icon.deleted { background: #f8d7da; color: #842029; }
+
+    @@media (max-width: 768px) {
+        .stats-card {
+            margin-bottom: 1rem;
+        }
+        
+        .dashboard-widget {
+            margin-bottom: 1rem;
+        }
+    }
+</style>
+
 @section Scripts {
     <script>
+        let contactGrowthChart, companyChart, activityChart, apiUsageChart;
+        const analyticsData = @Html.Raw(Json.Serialize(Model));
+
         $(document).ready(function() {
-            // Add any dashboard-specific JavaScript here
+            initializeCharts();
+            loadRecentActivity();
+            setupAutoRefresh();
+            
+            $('#refreshDashboard').click(function() {
+                refreshDashboard();
+            });
+
+            $('#growthPeriod').change(function() {
+                loadContactGrowth($(this).val());
+            });
         });
+
+        function initializeCharts() {
+            // Contact Growth Chart
+            const growthCtx = document.getElementById('contactGrowthChart').getContext('2d');
+            contactGrowthChart = new Chart(growthCtx, {
+                type: 'line',
+                data: {
+                    labels: analyticsData.contactGrowth.labels,
+                    datasets: [{
+                        label: 'Total Contacts',
+                        data: analyticsData.contactGrowth.values,
+                        borderColor: '#667eea',
+                        backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            // Company Distribution Chart
+            const companyCtx = document.getElementById('companyChart').getContext('2d');
+            companyChart = new Chart(companyCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: analyticsData.companyDistribution.companies,
+                    datasets: [{
+                        data: analyticsData.companyDistribution.counts,
+                        backgroundColor: [
+                            '#667eea', '#764ba2', '#f093fb', '#f5576c',
+                            '#4facfe', '#00f2fe', '#43e97b', '#38f9d7'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+
+            // Activity Timeline Chart
+            const activityCtx = document.getElementById('activityChart').getContext('2d');
+            activityChart = new Chart(activityCtx, {
+                type: 'bar',
+                data: {
+                    labels: analyticsData.activityTimeline.labels,
+                    datasets: [
+                        {
+                            label: 'Created',
+                            data: analyticsData.activityTimeline.created,
+                            backgroundColor: '#28a745'
+                        },
+                        {
+                            label: 'Updated',
+                            data: analyticsData.activityTimeline.updated,
+                            backgroundColor: '#17a2b8'
+                        },
+                        {
+                            label: 'Viewed',
+                            data: analyticsData.activityTimeline.viewed,
+                            backgroundColor: '#ffc107'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    scales: {
+                        x: {
+                            stacked: true
+                        },
+                        y: {
+                            stacked: true,
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            // API Usage Chart
+            const apiCtx = document.getElementById('apiUsageChart').getContext('2d');
+            apiUsageChart = new Chart(apiCtx, {
+                type: 'bar',
+                data: {
+                    labels: analyticsData.apiUsage.labels,
+                    datasets: [{
+                        label: 'API Requests',
+                        data: analyticsData.apiUsage.requestCounts,
+                        backgroundColor: '#f5576c'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+
+        function loadRecentActivity() {
+            const activityHtml = analyticsData.recentActivity.items.length > 0
+                ? analyticsData.recentActivity.items.map(item => `
+                    <div class="activity-item d-flex align-items-center">
+                        <div class="activity-icon ${item.type.toLowerCase()}">
+                            <i class="bi bi-${getActivityIcon(item.type)}"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                            <div class="fw-bold">${escapeHtml(item.description)}</div>
+                            <small class="text-muted">
+                                ${escapeHtml(item.contactName)} • ${formatDate(item.timestamp)} • ${escapeHtml(item.userName)}
+                            </small>
+                        </div>
+                    </div>
+                `).join('')
+                : '<div class="text-center text-muted py-4">No recent activity</div>';
+
+            $('#recentActivity').html(activityHtml);
+        }
+
+        function getActivityIcon(type) {
+            const icons = {
+                'Created': 'plus-circle',
+                'Updated': 'pencil',
+                'Viewed': 'eye',
+                'Deleted': 'trash',
+                'Exported': 'download',
+                'Imported': 'upload'
+            };
+            return icons[type] || 'circle';
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            const now = new Date();
+            const diffMs = now - date;
+            const diffMins = Math.floor(diffMs / 60000);
+            const diffHours = Math.floor(diffMs / 3600000);
+            const diffDays = Math.floor(diffMs / 86400000);
+
+            if (diffMins < 1) return 'Just now';
+            if (diffMins < 60) return `${diffMins}m ago`;
+            if (diffHours < 24) return `${diffHours}h ago`;
+            if (diffDays < 7) return `${diffDays}d ago`;
+            return date.toLocaleDateString();
+        }
+
+        function escapeHtml(text) {
+            const map = {
+                '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;'
+            };
+            return text ? text.replace(/[&<>"']/g, m => map[m]) : '';
+        }
+
+        function refreshDashboard() {
+            $('#refreshDashboard').prop('disabled', true).html('<i class="bi bi-arrow-clockwise spin"></i> Refreshing...');
+            
+            $.ajax({
+                url: '/api/dashboard/analytics',
+                type: 'GET',
+                success: function(data) {
+                    // Update stats
+                    $('#totalContacts').text(data.totalContacts);
+                    $('#clientContacts').text(data.clientContacts);
+                    $('#dataExports').text(data.dataExportCount);
+                    $('#apiUsage').text(data.apiClientUsageCount);
+
+                    // Update charts
+                    contactGrowthChart.data.labels = data.contactGrowth.labels;
+                    contactGrowthChart.data.datasets[0].data = data.contactGrowth.values;
+                    contactGrowthChart.update();
+
+                    companyChart.data.labels = data.companyDistribution.companies;
+                    companyChart.data.datasets[0].data = data.companyDistribution.counts;
+                    companyChart.update();
+
+                    activityChart.data.labels = data.activityTimeline.labels;
+                    activityChart.data.datasets[0].data = data.activityTimeline.created;
+                    activityChart.data.datasets[1].data = data.activityTimeline.updated;
+                    activityChart.data.datasets[2].data = data.activityTimeline.viewed;
+                    activityChart.update();
+
+                    apiUsageChart.data.labels = data.apiUsage.labels;
+                    apiUsageChart.data.datasets[0].data = data.apiUsage.requestCounts;
+                    apiUsageChart.update();
+
+                    // Update recent activity
+                    analyticsData.recentActivity = data.recentActivity;
+                    loadRecentActivity();
+                },
+                error: function() {
+                    alert('Failed to refresh dashboard data');
+                },
+                complete: function() {
+                    $('#refreshDashboard').prop('disabled', false).html('<i class="bi bi-arrow-clockwise"></i> Refresh');
+                }
+            });
+        }
+
+        function loadContactGrowth(days) {
+            $.ajax({
+                url: `/api/dashboard/contact-growth?days=${days}`,
+                type: 'GET',
+                success: function(data) {
+                    contactGrowthChart.data.labels = data.labels;
+                    contactGrowthChart.data.datasets[0].data = data.values;
+                    contactGrowthChart.update();
+                }
+            });
+        }
+
+        function setupAutoRefresh() {
+            // Auto-refresh every 5 minutes
+            setInterval(refreshDashboard, 300000);
+        }
+
+        // Add spin animation
+        $('<style>').text(`
+            @@keyframes spin {
+                from { transform: rotate(0deg); }
+                to { transform: rotate(360deg); }
+            }
+            .spin {
+                animation: spin 1s linear infinite;
+            }
+        `).appendTo('head');
     </script>
 }

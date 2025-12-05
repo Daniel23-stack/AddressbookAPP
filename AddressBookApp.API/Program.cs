@@ -1,4 +1,4 @@
-﻿﻿﻿﻿using AddressBookApp.Application.Mappings;
+﻿﻿using AddressBookApp.Application.Mappings;
 using AddressBookApp.Core.Interfaces;
 using AddressBookApp.Application.Services;
 using AddressBookApp.Infrastructure.Data;
@@ -67,6 +67,7 @@ builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<IContactRepository, ContactRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<ISavedSearchRepository, SavedSearchRepository>();
 
 // Add services
 builder.Services.AddScoped<IContactService, ContactService>();
@@ -74,6 +75,8 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IDashboardService, DashboardService>();
 builder.Services.AddScoped<IApiClientService, ApiClientService>();
 builder.Services.AddScoped<IImportExportService, ImportExportService>();
+builder.Services.AddScoped<ISavedSearchService, SavedSearchService>();
+builder.Services.AddScoped<SavedSearchServiceWrapper>();
 
 // Add repositories for dashboard
 builder.Services.AddScoped<IDataExportRepository, DataExportRepository>();

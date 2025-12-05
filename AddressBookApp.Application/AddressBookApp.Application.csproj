@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AddressBookApp.Core\AddressBookApp.Core.csproj" />
+    <ProjectReference Include="..\AddressBookApp.Infrastructure\AddressBookApp.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

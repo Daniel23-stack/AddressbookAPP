@@ -1,23 +1,553 @@
-﻿﻿﻿﻿@{
-    ViewData["Title"] = "Home Page";
+﻿﻿@{
+    ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome to Address Book App</h1>
-    <p>A simple application to manage your contacts.</p>
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container">
+        <div class="row align-items-center min-vh-75">
+            <div class="col-lg-6">
+                <div class="hero-content">
+                    <h1 class="hero-title">
+                        Manage Your Contacts
+                        <span class="gradient-text">Effortlessly</span>
+                    </h1>
+                    <p class="hero-description">
+                        A modern, intuitive address book application to organize, search, and manage all your contacts in one place. 
+                        Built with cutting-edge technology for a seamless experience.
+                    </p>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <div class="hero-buttons">
+                            <a href="/Dashboard" class="btn btn-hero-primary">
+                                <i class="bi bi-speedometer2"></i> Go to Dashboard
+                            </a>
+                            <a asp-controller="Home" asp-action="Contacts" class="btn btn-hero-secondary">
+                                <i class="bi bi-person-lines-fill"></i> View Contacts
+                            </a>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="hero-buttons">
+                            <a href="/Account/Register" class="btn btn-hero-primary">
+                                <i class="bi bi-person-plus"></i> Get Started Free
+                            </a>
+                            <a href="/Account/Login" class="btn btn-hero-secondary">
+                                <i class="bi bi-box-arrow-in-right"></i> Sign In
+                            </a>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="hero-image">
+                    <div class="floating-card card-1">
+                        <i class="bi bi-person-circle"></i>
+                        <div class="card-content">
+                            <strong>John Doe</strong>
+                            <small>john@example.com</small>
+                        </div>
+                    </div>
+                    <div class="floating-card card-2">
+                        <i class="bi bi-person-circle"></i>
+                        <div class="card-content">
+                            <strong>Jane Smith</strong>
+                            <small>jane@example.com</small>
+                        </div>
+                    </div>
+                    <div class="floating-card card-3">
+                        <i class="bi bi-person-circle"></i>
+                        <div class="card-content">
+                            <strong>Bob Johnson</strong>
+                            <small>bob@example.com</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="hero-shape"></div>
+</section>
 
-    @if (User.Identity.IsAuthenticated)
-    {
-        <div class="mt-4">
-            <a href="/Dashboard" class="btn btn-success me-2">Go to Dashboard</a>
-            <a asp-controller="Home" asp-action="Contacts" class="btn btn-primary">View Contacts</a>
+<!-- Features Section -->
+<section class="features-section py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="section-title">Powerful Features</h2>
+            <p class="section-subtitle">Everything you need to manage your contacts efficiently</p>
         </div>
-    }
-    else
-    {
-        <div class="mt-4">
-            <a href="/Account/Login" class="btn btn-primary me-2">Login</a>
-            <a href="/Account/Register" class="btn btn-outline-primary">Register</a>
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="bi bi-search"></i>
+                    </div>
+                    <h3 class="feature-title">Smart Search</h3>
+                    <p class="feature-description">
+                        Find contacts instantly with our powerful search functionality. Search by name, email, company, or phone number.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="bi bi-cloud-upload"></i>
+                    </div>
+                    <h3 class="feature-title">Import & Export</h3>
+                    <p class="feature-description">
+                        Easily import contacts from CSV files or export your data whenever you need it. Keep your data portable and accessible.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="bi bi-shield-lock"></i>
+                    </div>
+                    <h3 class="feature-title">Secure & Private</h3>
+                    <p class="feature-description">
+                        Your data is protected with industry-standard security. We take your privacy seriously.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="bi bi-phone"></i>
+                    </div>
+                    <h3 class="feature-title">Multiple Contacts</h3>
+                    <p class="feature-description">
+                        Store multiple phone numbers, email addresses, and addresses for each contact. Organize everything in one place.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="bi bi-graph-up"></i>
+                    </div>
+                    <h3 class="feature-title">Dashboard Analytics</h3>
+                    <p class="feature-description">
+                        Track your contact statistics and usage with our intuitive dashboard. Get insights at a glance.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="bi bi-code-slash"></i>
+                    </div>
+                    <h3 class="feature-title">API Access</h3>
+                    <p class="feature-description">
+                        Integrate with your applications using our RESTful API. Generate API keys and manage access easily.
+                    </p>
+                </div>
+            </div>
         </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+@if (!User.Identity.IsAuthenticated)
+{
+    <section class="cta-section py-5">
+        <div class="container">
+            <div class="cta-box">
+                <h2 class="cta-title">Ready to Get Started?</h2>
+                <p class="cta-description">
+                    Join thousands of users who trust Address Book App to manage their contacts.
+                </p>
+                <div class="cta-buttons">
+                    <a href="/Account/Register" class="btn btn-cta-primary">
+                        <i class="bi bi-person-plus"></i> Create Free Account
+                    </a>
+                    <a href="/Account/Login" class="btn btn-cta-secondary">
+                        <i class="bi bi-box-arrow-in-right"></i> Sign In
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+
+<!-- Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+
+<style>
+    /* Hero Section */
+    .hero-section {
+        position: relative;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 80px 0;
+        overflow: hidden;
+        min-height: 90vh;
+        display: flex;
+        align-items: center;
     }
-</div>
+
+    .hero-shape {
+        position: absolute;
+        bottom: -50px;
+        left: 0;
+        width: 100%;
+        height: 100px;
+        background: white;
+        transform: skewY(-2deg);
+        transform-origin: top left;
+    }
+
+    .min-vh-75 {
+        min-height: 75vh;
+    }
+
+    .hero-content {
+        z-index: 2;
+        position: relative;
+    }
+
+    .hero-title {
+        font-size: 3.5rem;
+        font-weight: 700;
+        line-height: 1.2;
+        margin-bottom: 1.5rem;
+        animation: fadeInUp 0.8s ease-out;
+    }
+
+    .gradient-text {
+        background: linear-gradient(120deg, #ffd89b 0%, #19547b 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .hero-description {
+        font-size: 1.25rem;
+        line-height: 1.8;
+        margin-bottom: 2rem;
+        opacity: 0.95;
+        animation: fadeInUp 0.8s ease-out 0.2s both;
+    }
+
+    .hero-buttons {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        animation: fadeInUp 0.8s ease-out 0.4s both;
+    }
+
+    .btn-hero-primary {
+        background: white;
+        color: #667eea;
+        padding: 12px 30px;
+        font-weight: 600;
+        border-radius: 50px;
+        border: none;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .btn-hero-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        color: #667eea;
+    }
+
+    .btn-hero-secondary {
+        background: transparent;
+        color: white;
+        padding: 12px 30px;
+        font-weight: 600;
+        border-radius: 50px;
+        border: 2px solid white;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .btn-hero-secondary:hover {
+        background: white;
+        color: #667eea;
+        transform: translateY(-2px);
+    }
+
+    /* Hero Image with Floating Cards */
+    .hero-image {
+        position: relative;
+        height: 500px;
+        animation: fadeInRight 1s ease-out;
+    }
+
+    .floating-card {
+        position: absolute;
+        background: white;
+        border-radius: 15px;
+        padding: 20px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        color: #333;
+        animation: float 3s ease-in-out infinite;
+    }
+
+    .floating-card i {
+        font-size: 2.5rem;
+        color: #667eea;
+    }
+
+    .card-content {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .card-content strong {
+        font-size: 1.1rem;
+        margin-bottom: 5px;
+    }
+
+    .card-content small {
+        color: #666;
+        font-size: 0.9rem;
+    }
+
+    .card-1 {
+        top: 50px;
+        left: 50px;
+        animation-delay: 0s;
+    }
+
+    .card-2 {
+        top: 200px;
+        right: 50px;
+        animation-delay: 1s;
+    }
+
+    .card-3 {
+        bottom: 100px;
+        left: 100px;
+        animation-delay: 2s;
+    }
+
+    @@keyframes float {
+        0%, 100% {
+            transform: translateY(0px);
+        }
+        50% {
+            transform: translateY(-20px);
+        }
+    }
+
+    @@keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @@keyframes fadeInRight {
+        from {
+            opacity: 0;
+            transform: translateX(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    /* Features Section */
+    .features-section {
+        background: #f8f9fa;
+        padding: 100px 0;
+    }
+
+    .section-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #333;
+        margin-bottom: 1rem;
+    }
+
+    .section-subtitle {
+        font-size: 1.2rem;
+        color: #666;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .feature-card {
+        background: white;
+        padding: 2.5rem;
+        border-radius: 15px;
+        height: 100%;
+        transition: all 0.3s ease;
+        border: 1px solid #e9ecef;
+    }
+
+    .feature-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+    }
+
+    .feature-icon {
+        width: 70px;
+        height: 70px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1.5rem;
+    }
+
+    .feature-icon i {
+        font-size: 2rem;
+        color: white;
+    }
+
+    .feature-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 1rem;
+    }
+
+    .feature-description {
+        color: #666;
+        line-height: 1.7;
+    }
+
+    /* CTA Section */
+    .cta-section {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 80px 0;
+    }
+
+    .cta-box {
+        text-align: center;
+        color: white;
+        max-width: 700px;
+        margin: 0 auto;
+    }
+
+    .cta-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+    }
+
+    .cta-description {
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+        opacity: 0.95;
+    }
+
+    .cta-buttons {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .btn-cta-primary {
+        background: white;
+        color: #667eea;
+        padding: 15px 35px;
+        font-weight: 600;
+        border-radius: 50px;
+        border: none;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .btn-cta-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        color: #667eea;
+    }
+
+    .btn-cta-secondary {
+        background: transparent;
+        color: white;
+        padding: 15px 35px;
+        font-weight: 600;
+        border-radius: 50px;
+        border: 2px solid white;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .btn-cta-secondary:hover {
+        background: white;
+        color: #667eea;
+        transform: translateY(-2px);
+    }
+
+    /* Responsive Design */
+    @@media (max-width: 768px) {
+        .hero-title {
+            font-size: 2.5rem;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+        }
+
+        .hero-image {
+            height: 300px;
+            margin-top: 3rem;
+        }
+
+        .floating-card {
+            padding: 15px;
+        }
+
+        .floating-card i {
+            font-size: 2rem;
+        }
+
+        .card-1, .card-2, .card-3 {
+            position: relative;
+            top: auto;
+            left: auto;
+            right: auto;
+            bottom: auto;
+            margin: 10px auto;
+        }
+
+        .section-title {
+            font-size: 2rem;
+        }
+
+        .cta-title {
+            font-size: 2rem;
+        }
+
+        .hero-buttons, .cta-buttons {
+            flex-direction: column;
+        }
+
+        .btn-hero-primary, .btn-hero-secondary,
+        .btn-cta-primary, .btn-cta-secondary {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+</style>

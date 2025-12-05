@@ -72,7 +72,7 @@ namespace AddressBookApp.Infrastructure.Data
                     FirstName = "John",
                     LastName = "Doe",
                     Company = "ABC Corporation",
-                    Notes = "Important client",
+                    QuickNotes = "Important client",
                     IsClient = true,
                     CreatedAt = DateTime.UtcNow
                 },
@@ -82,7 +82,7 @@ namespace AddressBookApp.Infrastructure.Data
                     FirstName = "Jane",
                     LastName = "Smith",
                     Company = "XYZ Ltd",
-                    Notes = "Potential client",
+                    QuickNotes = "Potential client",
                     IsClient = false,
                     CreatedAt = DateTime.UtcNow
                 },
@@ -92,7 +92,7 @@ namespace AddressBookApp.Infrastructure.Data
                     FirstName = "Bob",
                     LastName = "Johnson",
                     Company = "Johnson & Co",
-                    Notes = "Long-term client",
+                    QuickNotes = "Long-term client",
                     IsClient = true,
                     CreatedAt = DateTime.UtcNow
                 }

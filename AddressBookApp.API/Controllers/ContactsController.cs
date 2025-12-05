@@ -54,6 +54,34 @@ namespace AddressBookApp.API.Controllers
             return Ok(_mapper.Map<IEnumerable<ContactDto>>(contacts));
         }
 
+        [HttpPost("search/advanced")]
+        [ProducesResponseType(typeof(IEnumerable<ContactDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<IEnumerable<ContactDto>>> AdvancedSearch([FromBody] SearchFilterDto filterDto)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            // Convert DTO to Core model (SearchFilterDto inherits from SearchFilter, so this works)
+            var filter = (Core.Models.SearchFilter)filterDto;
+            var contacts = await _contactService.AdvancedSearchAsync(filter);
+            return Ok(_mapper.Map<IEnumerable<ContactDto>>(contacts));
+        }
+
+        [HttpPost("search/advanced/count")]
+        [ProducesResponseType(typeof(int), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<int>> GetAdvancedSearchCount([FromBody] SearchFilterDto filterDto)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            // Convert DTO to Core model
+            var filter = (Core.Models.SearchFilter)filterDto;
+            var count = await _contactService.GetAdvancedSearchCountAsync(filter);
+            return Ok(count);
+        }
+
         [HttpPost]
         [ProducesResponseType(typeof(ContactDto), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

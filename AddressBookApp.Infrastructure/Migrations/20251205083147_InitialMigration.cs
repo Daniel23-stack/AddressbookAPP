@@ -5,7 +5,7 @@
 namespace AddressBookApp.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class AddressBookMigration : Migration
+    public partial class InitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
