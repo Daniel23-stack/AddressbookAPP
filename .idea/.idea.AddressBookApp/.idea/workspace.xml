@@ -9,31 +9,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9c9d31ff-f10a-4f69-a587-b2e820379cd3" name="Changes" comment="done fixing errors">
-      <change afterPath="$PROJECT_DIR$/AddressBookApp.API/Controllers/ApiClientsMvcController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AddressBookApp.API/Controllers/ApiClientsViewsController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AddressBookApp.API/Controllers/BasicApiClientsController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AddressBookApp.API/Controllers/BasicRegisterController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AddressBookApp.API/Controllers/SimpleApiClientsController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AddressBookApp.API/Views/Account/Register.cshtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AddressBookApp.API/Views/Account/SimpleRegister.cshtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AddressBookApp.API/Views/ApiClientsMvc/Create.cshtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AddressBookApp.API/Views/ApiClientsMvc/Credentials.cshtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AddressBookApp.API/Views/ApiClientsMvc/Index.cshtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AddressBookApp.API/Views/ApiClientsViews/Create.cshtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AddressBookApp.API/Views/ApiClientsViews/Credentials.cshtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AddressBookApp.API/Views/ApiClientsViews/Index.cshtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AddressBookApp.API/Views/BasicApiClients/Create.cshtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AddressBookApp.API/Views/BasicApiClients/Credentials.cshtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AddressBookApp.API/Views/BasicApiClients/Index.cshtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AddressBookApp.API/Views/BasicRegister/Index.cshtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AddressBookApp.API/Views/BasicRegister/Success.cshtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AddressBookApp.API/Views/Dashboard/Index.cshtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AddressBookApp.API/Views/SimpleApiClients/Create.cshtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AddressBookApp.API/Views/SimpleApiClients/Index.cshtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/SimpleApp/Program.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/SimpleApp/SimpleApp.csproj" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TestApp/Program.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TestApp/TestApp.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.AddressBookApp/.idea/projectSettingsUpdater.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.AddressBookApp/.idea/projectSettingsUpdater.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.AddressBookApp/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.AddressBookApp/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,12 +23,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/Daniel23-stack/AddressbookAPP.git",
-    "accountId": "0b8e6c71-0fad-4ed3-924e-2cd11befeab4"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Daniel23-stack&quot;
   }
-}]]></component>
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Daniel23-stack/AddressbookAPP.git&quot;,
+    &quot;accountId&quot;: &quot;ec71c24e-b332-44f2-921c-21c5de5183d8&quot;
+  }
+}</component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/AddressBookApp.API/Program.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
@@ -61,7 +44,7 @@
   &quot;associatedIndex&quot;: 0
 }</component>
   <component name="ProjectId" id="2vUdRXidwD5fCkAz8NCjUhKc8Ik" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+  <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectViewState">
@@ -72,6 +55,8 @@
   &quot;keyToString&quot;: {
     &quot;.NET Project.AddressBookApp.API.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -88,9 +73,12 @@
       <option name="PROGRAM_PARAMETERS" value="" />
       <option name="WORKING_DIRECTORY" value="" />
       <option name="PASS_PARENT_ENVS" value="1" />
-      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <option name="ENV_FILE_PATHS" value="" />
+      <option name="REDIRECT_INPUT_PATH" value="" />
+      <option name="MIXED_MODE_DEBUG" value="0" />
       <option name="USE_MONO" value="0" />
       <option name="RUNTIME_ARGUMENTS" value="" />
+      <option name="AUTO_ATTACH_CHILDREN" value="0" />
       <option name="PROJECT_PATH" value="$PROJECT_DIR$/AddressBookApp.API/AddressBookApp.API.csproj" />
       <option name="PROJECT_EXE_PATH_TRACKING" value="1" />
       <option name="PROJECT_ARGUMENTS_TRACKING" value="1" />
@@ -106,9 +94,12 @@
       <option name="PROGRAM_PARAMETERS" value="" />
       <option name="WORKING_DIRECTORY" value="" />
       <option name="PASS_PARENT_ENVS" value="1" />
-      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <option name="ENV_FILE_PATHS" value="" />
+      <option name="REDIRECT_INPUT_PATH" value="" />
+      <option name="MIXED_MODE_DEBUG" value="0" />
       <option name="USE_MONO" value="0" />
       <option name="RUNTIME_ARGUMENTS" value="" />
+      <option name="AUTO_ATTACH_CHILDREN" value="0" />
       <option name="PROJECT_PATH" value="$PROJECT_DIR$/AddressBookApp.Infrastructure/AddressBookApp.Infrastructure.csproj" />
       <option name="PROJECT_EXE_PATH_TRACKING" value="1" />
       <option name="PROJECT_ARGUMENTS_TRACKING" value="1" />
@@ -131,6 +122,8 @@
       <workItem from="1744203582397" duration="8456000" />
       <workItem from="1744213650342" duration="5004000" />
       <workItem from="1744268263119" duration="5605000" />
+      <workItem from="1764839384053" duration="158000" />
+      <workItem from="1764839609460" duration="258000" />
     </task>
     <task id="LOCAL-00001" summary="done fixing errors">
       <option name="closed" value="true" />
@@ -163,5 +156,23 @@
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="done fixing errors" />
     <option name="LAST_COMMIT_MESSAGE" value="done fixing errors" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
+          <properties exception="System.OperationCanceledException" breakIfHandledByOtherCode="false" displayValue="System.OperationCanceledException" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+        <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
+          <properties exception="System.Threading.Tasks.TaskCanceledException" breakIfHandledByOtherCode="false" displayValue="System.Threading.Tasks.TaskCanceledException" />
+          <option name="timeStamp" value="2" />
+        </breakpoint>
+        <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
+          <properties exception="System.Threading.ThreadAbortException" breakIfHandledByOtherCode="false" displayValue="System.Threading.ThreadAbortException" />
+          <option name="timeStamp" value="3" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
